@@ -1,5 +1,6 @@
 package br.com.dmb.workshopmongo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.dmb.workshopmongo.domain.Post;
-import br.com.dmb.workshopmongo.domain.User;
 import br.com.dmb.workshopmongo.repository.PostRepository;
 import br.com.dmb.workshopmongo.services.exception.ObjectNotFoundException;
 
@@ -27,5 +27,9 @@ public class PostService {
 		return repo.searchTitle(text);
 	}
 	
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate){
+		maxDate = new Date(maxDate.getTime() + 24 * 60 *60 * 1000);
+		return repo.fullSearch(text, minDate, maxDate);
+	}
 
 }
